@@ -1,6 +1,10 @@
-require_relative './bundle'
-require_relative './item'
 require_relative './subset_sum'
+
+Item = Struct.new(:name, :code)
+Bundle = Struct.new(:item, :price_details) do
+  def item_code; item.code; end
+  def item_name; item.name; end
+end
 
 class Shop
   BUNDLES = [
