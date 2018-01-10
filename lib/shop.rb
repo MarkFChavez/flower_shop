@@ -11,7 +11,7 @@ class Shop
 
   # TODO: Handle invalid `how_many`
   def order(how_many, code)
-    bundle_details = get_bundle(code).price_details
+    bundle_details = find_bundle_by_code(code).price_details
     bundle_sizes = SubsetSum.compute(how_many, bundle_details.keys)
 
     total = 0
@@ -28,7 +28,7 @@ class Shop
 
   private
 
-  def get_bundle(code)
+  def find_bundle_by_code(code)
     BUNDLES.select { |bundle| bundle.item_code == code }.first
   end
 end
