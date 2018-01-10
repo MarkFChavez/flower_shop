@@ -23,3 +23,9 @@ A successfully passing test(s) that demonstrates the following output: (The form
   1 x 6 $16.95 13 T58 $25.85
   2 x 5 $9.95
   1 x 3 $5.95
+
+### Usage
+
+```ruby
+ruby start.rb
+```
