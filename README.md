@@ -16,9 +16,11 @@ Each order has a series of lines with each line containing the number of items f
 
 
 #### An example input
+```ruby
 10 R12
 15 L09
 13 T58
+```
 
 
 ### Output
