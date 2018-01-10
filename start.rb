@@ -9,7 +9,7 @@ def print_result(result)
       total + hash[:price]
     end
 
-    puts "#{items.size} x #{how_many} $#{items.first[:price]}"
+    puts "   #{items.size} x #{how_many} $#{items.first[:price]}"
   end
 end
 
