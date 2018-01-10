@@ -9,28 +9,25 @@ class Shop
     Bundle.new(Item.new('Tulips', 'T58'), { 3 => 5.95, 5 => 9.95, 9 => 16.99 })
   ]
 
-  def self.order(how_many, code)
+  def order(how_many, code)
     bundle_details = get_bundle(code).price_details
     bundle_sizes = SubsetSum.compute(how_many, bundle_details.keys)
 
     total = 0
 
     result = bundle_sizes.map do |size|
-      if bundle_details.has_key?(size)
-        total += bundle_details[size]
-        { how_many: size, price: bundle_details[size] }
-      end
+      return unless bundle_details.has_key?(size)
+
+      total += bundle_details[size]
+      { how_many: size, price: bundle_details[size] }
     end.compact.group_by { |item| item[:how_many] }
 
-    {
-      total_price: total,
-      items: result
-    }
+    { total_price: total, items: result }
   end
 
   private
 
-  def self.get_bundle(code)
+  def get_bundle(code)
     BUNDLES.select { |bundle| bundle.item_code == code }.first
   end
 end
