@@ -6,7 +6,7 @@ class Bundle
     @price_details = price_details
   end
 
-  def item_name
-    item.name
+  def item_code
+    item.code
   end
 end
