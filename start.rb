@@ -13,14 +13,27 @@ def print_result(result)
   end
 end
 
-puts '##########'
+puts "SHOP"
+puts "####"
+
+puts ''
+
+Shop::BUNDLES.each do |bundle|
+  puts bundle.item_name
+  bundle.price_details.each do |how_many, price|
+    puts "#{how_many} for $#{price}"
+  end
+  puts ''
+end
+
+puts ''
+
 puts "Order 25 Roses"
 result = shop.order(25, 'R12')
 print_result(result)
 
 puts ''
 
-puts '##########'
 puts "Order 18 Lilies"
 result = shop.order(18, 'L09')
 print_result(result)

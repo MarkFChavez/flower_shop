@@ -9,4 +9,8 @@ class Bundle
   def item_code
     item.code
   end
+
+  def item_name
+    item.name
+  end
 end
