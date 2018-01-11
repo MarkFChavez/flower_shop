@@ -13,11 +13,11 @@ def print_result(how_many, code, order)
   end
 end
 
-puts 'Welcome to Flower Shop v1.0!'
+puts 'WELCOME TO FLOWER SHOP V1.0!'
 puts '============================'
 puts ''
 
-puts 'HERE ARE THE AVAILABLE BUNDLES:'
+puts 'Here are the available bundles:'
 shop.bundles.each_with_index do |bundle, index|
   puts "#{index + 1}) [#{bundle.item_name}] Code: #{bundle.item_code}"
   puts '=============================='
@@ -27,16 +27,28 @@ shop.bundles.each_with_index do |bundle, index|
   puts ''
 end
 
-puts 'Order a bundle by typing in the ff. formats [number_of_pieces item_code] w/o the brackets:'
+try_again = true
 
-begin
-  how_many, code = gets.split(' ')
-  order = shop.order!(how_many, code)
+while try_again do
+  puts 'Order a bundle by typing in the ff. formats [number_of_pieces item_code] w/o the brackets:'
 
-  puts ''
-  puts 'Order Details:'
+  begin
 
-  print_result(how_many, code, order)
-rescue Exception => e
-  puts e.message
+    how_many, code = gets.split(' ')
+    order = shop.order!(how_many, code)
+
+    puts ''
+    puts 'Order Details:'
+
+    print_result(how_many, code, order)
+
+    puts ''
+    puts 'Do you want to try again? (Y or N):'
+    answer = gets
+    try_again = answer.strip == 'Y' ? true : false
+
+  rescue Exception => e
+    try_again = true
+    puts e.message
+  end
 end
