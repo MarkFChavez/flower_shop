@@ -18,7 +18,7 @@ puts '============================'
 puts ''
 
 puts 'HERE ARE THE AVAILABLE BUNDLES:'
-Shop::BUNDLES.each_with_index do |bundle, index|
+shop.bundles.each_with_index do |bundle, index|
   puts "#{index + 1}) [#{bundle.item_name}] Code: #{bundle.item_code}"
   puts '=============================='
   bundle.price_details.each do |how_many, price|
@@ -27,13 +27,7 @@ Shop::BUNDLES.each_with_index do |bundle, index|
   puts ''
 end
 
-puts 'Order a bundle by typing in the ff. formats'
-puts 'e.g.'
-puts '10 R12'
-puts '15 L09'
-puts '13 T58'
-
-puts 'So, what\'s your order?'
+puts 'Order a bundle by typing in the ff. formats [number_of_pieces item_code] w/o the brackets:'
 
 begin
   how_many, code = gets.split(' ')
