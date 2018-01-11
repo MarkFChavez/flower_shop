@@ -44,8 +44,7 @@ while try_again do
 
     puts ''
     puts 'Do you want to try again? (Y or N):'
-    answer = gets
-    try_again = answer.strip == 'Y' ? true : false
+    try_again = gets.strip == 'Y' ? true : false
 
   rescue Exception => e
     try_again = true
