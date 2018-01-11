@@ -8,15 +8,27 @@ Bundle = Struct.new(:item, :price_details) do
   def item_name; item.name; end
 end
 
+TEST_BUNDLES = [
+  Bundle.for(Item.new('Roses', 'R12'), { 5 => 6.99, 10 => 12.99 }),
+  Bundle.for(Item.new('Lilies', 'L09'), { 3 => 9.95, 6 => 16.95, 9 => 24.95 }),
+  Bundle.for(Item.new('Tulips', 'T58'), { 3 => 5.95, 5 => 9.95, 9 => 16.99 })
+]
+
+CUSTOM_BUNDLES = [
+  Bundle.for(Item.new('Premium Ampersand Crewneck', 'T01'), { 3 => 6.99, 10 => 12.99 }),
+  Bundle.for(Item.new('Premium Leather Mousepad', 'T02'), { 7 => 9.95, 2 => 16.95, 4 => 24.95 }),
+  Bundle.for(Item.new('Slim Card Case', 'T03'), { 8 => 5.95, 3 => 9.95, 11 => 16.99 })
+]
+
 class Shop
-  BUNDLES = [
-    Bundle.for(Item.new('Roses', 'R12'), { 5 => 6.99, 10 => 12.99 }),
-    Bundle.for(Item.new('Lilies', 'L09'), { 3 => 9.95, 6 => 16.95, 9 => 24.95 }),
-    Bundle.for(Item.new('Tulips', 'T58'), { 3 => 5.95, 5 => 9.95, 9 => 16.99 })
-  ]
+  attr_reader :bundles
+
+  def initialize(bundles = TEST_BUNDLES)
+    @bundles = bundles
+  end
 
   def order!(number_of_pieces, code)
-    bundle = find_bundle_by_code(BUNDLES, code)
+    bundle = find_bundle_by_code(code)
     raise 'Cannot find bundle. Make sure you typed the right code.' unless bundle
 
     price_details = bundle.price_details
@@ -28,7 +40,7 @@ class Shop
 
   private
 
-    def find_bundle_by_code(bundles, code)
+    def find_bundle_by_code(code)
       bundles.select { |bundle| bundle.item_code == code }.first
     end
 
