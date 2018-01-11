@@ -13,7 +13,7 @@ class SubsetSum
   def compute
     [].tap do |result|
       combination_sum(options.sort, 0, options.size - 1, target, [], result)
-    end.first
+    end.first || []
   end
 
   private

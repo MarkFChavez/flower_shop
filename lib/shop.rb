@@ -19,8 +19,6 @@ class Shop
     bundle_details = find_bundle_by_code(code).price_details
     bundle_size = SubsetSum.compute(how_many.to_i, bundle_details.keys)
 
-    return unless bundle_size
-
     total = 0
 
     result = bundle_size.map do |size|
