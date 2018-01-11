@@ -8,22 +8,25 @@ Bundle = Struct.new(:item, :price_details) do
   def item_name; item.name; end
 end
 
-TEST_BUNDLES = [
-  Bundle.for(Item.new('Roses', 'R12'), { 5 => 6.99, 10 => 12.99 }),
-  Bundle.for(Item.new('Lilies', 'L09'), { 3 => 9.95, 6 => 16.95, 9 => 24.95 }),
-  Bundle.for(Item.new('Tulips', 'T58'), { 3 => 5.95, 5 => 9.95, 9 => 16.99 })
-]
+# You can add your own custom bundle here...
+module SampleBundles
+  TEST = [
+    Bundle.for(Item.new('Roses', 'R12'), { 5 => 6.99, 10 => 12.99 }),
+    Bundle.for(Item.new('Lilies', 'L09'), { 3 => 9.95, 6 => 16.95, 9 => 24.95 }),
+    Bundle.for(Item.new('Tulips', 'T58'), { 3 => 5.95, 5 => 9.95, 9 => 16.99 })
+  ]
 
-CUSTOM_BUNDLES = [
-  Bundle.for(Item.new('Premium Ampersand Crewneck', 'T01'), { 3 => 6.99, 10 => 12.99 }),
-  Bundle.for(Item.new('Premium Leather Mousepad', 'T02'), { 7 => 9.95, 2 => 16.95, 4 => 24.95 }),
-  Bundle.for(Item.new('Slim Card Case', 'T03'), { 8 => 5.95, 3 => 9.95, 11 => 16.99 })
-]
+  CUSTOM = [
+    Bundle.for(Item.new('Premium Ampersand Crewneck', 'T01'), { 3 => 6.99, 10 => 12.99 }),
+    Bundle.for(Item.new('Premium Leather Mousepad', 'T02'), { 7 => 9.95, 2 => 16.95, 4 => 24.95 }),
+    Bundle.for(Item.new('Slim Card Case', 'T03'), { 8 => 5.95, 3 => 9.95, 11 => 16.99 })
+  ]
+end
 
 class Shop
   attr_reader :bundles
 
-  def initialize(bundles = TEST_BUNDLES)
+  def initialize(bundles = SampleBundles::TEST)
     @bundles = bundles
   end
 
@@ -35,7 +38,7 @@ class Shop
     sizes_combination = find_right_sizes_combination(price_details, number_of_pieces)
     raise 'Cannot find a proper bundle for this order.' unless sizes_combination
 
-    create_order(sizes_combination, price_details)
+    build_order(sizes_combination, price_details)
   end
 
   private
@@ -49,7 +52,7 @@ class Shop
       SubsetSum.compute(number_of_pieces, available_bundles)
     end
 
-    def create_order(sizes, details)
+    def build_order(sizes, details)
       total = 0
       valid_sizes = sizes.select { |s| details.has_key?(s) }
 
