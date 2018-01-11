@@ -11,8 +11,7 @@ class Shop
   BUNDLES = [
     Bundle.for(Item.new('Roses', 'R12'), { 5 => 6.99, 10 => 12.99 }),
     Bundle.for(Item.new('Lilies', 'L09'), { 3 => 9.95, 6 => 16.95, 9 => 24.95 }),
-    Bundle.for(Item.new('Tulips', 'T58'), { 3 => 5.95, 5 => 9.95, 9 => 16.99 }),
-    Bundle.for(Item.new('Gumamela', 'G92'), { 10 => 35.99, 20 => 65.99, 5 => 20.00 })
+    Bundle.for(Item.new('Tulips', 'T58'), { 3 => 5.95, 5 => 9.95, 9 => 16.99 })
   ]
 
   # TODO: Handle invalid `how_many`
