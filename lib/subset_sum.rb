@@ -6,7 +6,7 @@ class SubsetSum
   attr_reader :target, :options
 
   def initialize(target, options)
-    @target = target
+    @target = target.to_i
     @options = options
   end
 

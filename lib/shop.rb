@@ -15,32 +15,37 @@ class Shop
     Bundle.for(Item.new('Tulips', 'T58'), { 3 => 5.95, 5 => 9.95, 9 => 16.99 })
   ]
 
-  def order!(how_many, code)
-    bundle = find_bundle_by_code(code)
+  def order!(number_of_pieces, code)
+    bundle = find_bundle_by_code(BUNDLES, code)
     raise 'Cannot find bundle. Make sure you typed the right code.' unless bundle
 
     price_details = bundle.price_details
-    sizes = SubsetSum.compute(how_many.to_i, price_details.keys)
-    raise 'Cannot find a proper bundle for this order.' unless sizes
+    sizes_combination = find_right_sizes_combination(price_details, number_of_pieces)
+    raise 'Cannot find a proper bundle for this order.' unless sizes_combination
 
-    create_order(sizes, price_details)
+    create_order(sizes_combination, price_details)
   end
 
   private
 
-  def find_bundle_by_code(code)
-    BUNDLES.select { |bundle| bundle.item_code == code }.first
-  end
+    def find_bundle_by_code(bundles, code)
+      bundles.select { |bundle| bundle.item_code == code }.first
+    end
 
-  def create_order(sizes, details)
-    total = 0
-    valid_sizes = sizes.select { |s| details.has_key?(s) }
+    def find_right_sizes_combination(price_details, number_of_pieces)
+      available_bundles = price_details.keys
+      SubsetSum.compute(number_of_pieces, available_bundles)
+    end
 
-    result = valid_sizes.map do |size|
-      total += details[size]
-      { how_many: size, price: details[size] }
-    end.compact.group_by { |item| item[:how_many] }
+    def create_order(sizes, details)
+      total = 0
+      valid_sizes = sizes.select { |s| details.has_key?(s) }
 
-    Order.new(total.round(2), result)
-  end
+      result = valid_sizes.map do |size|
+        total += details[size]
+        { how_many: size, price: details[size] }
+      end.compact.group_by { |item| item[:how_many] }
+
+      Order.new(total.round(2), result)
+    end
 end
