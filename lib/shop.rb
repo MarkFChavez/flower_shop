@@ -14,7 +14,6 @@ class Shop
     Bundle.for(Item.new('Tulips', 'T58'), { 3 => 5.95, 5 => 9.95, 9 => 16.99 })
   ]
 
-  # TODO: Handle invalid `how_many`
   def order(how_many, code)
     bundle_details = find_bundle_by_code(code).price_details
     bundle_size = SubsetSum.compute(how_many.to_i, bundle_details.keys)
