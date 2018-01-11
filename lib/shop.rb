@@ -1,6 +1,7 @@
 require_relative './subset_sum'
 
 Item = Struct.new(:name, :code)
+Order = Struct.new(:total, :result)
 Bundle = Struct.new(:item, :price_details) do
   def self.for(item, details); new(item, details); end
   def item_code; item.code; end
@@ -14,25 +15,32 @@ class Shop
     Bundle.for(Item.new('Tulips', 'T58'), { 3 => 5.95, 5 => 9.95, 9 => 16.99 })
   ]
 
-  def order(how_many, code)
-    bundle_details = find_bundle_by_code(code).price_details
-    bundle_size = SubsetSum.compute(how_many.to_i, bundle_details.keys)
+  def order!(how_many, code)
+    bundle = find_bundle_by_code(code)
+    raise 'Cannot find bundle. Make sure you typed the right code.' unless bundle
 
-    total = 0
+    price_details = bundle.price_details
+    sizes = SubsetSum.compute(how_many.to_i, price_details.keys)
+    raise 'Cannot find a proper bundle for this order.' unless sizes
 
-    result = bundle_size.map do |size|
-      return unless bundle_details.has_key?(size)
-      total += bundle_details[size]
-
-      { how_many: size, price: bundle_details[size] }
-    end.compact.group_by { |item| item[:how_many] }
-
-    { total_price: total, items: result }
+    create_order(sizes, price_details)
   end
 
   private
 
   def find_bundle_by_code(code)
     BUNDLES.select { |bundle| bundle.item_code == code }.first
+  end
+
+  def create_order(sizes, details)
+    total = 0
+    valid_sizes = sizes.select { |s| details.has_key?(s) }
+
+    result = valid_sizes.map do |size|
+      total += details[size]
+      { how_many: size, price: details[size] }
+    end.compact.group_by { |item| item[:how_many] }
+
+    Order.new(total.round(2), result)
   end
 end

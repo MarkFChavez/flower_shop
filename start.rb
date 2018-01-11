@@ -2,9 +2,9 @@ require_relative './lib/shop'
 
 shop = Shop.new
 
-def print_result(how_many, code, result)
-  puts "#{how_many} #{code} $#{result[:total_price].round(2)}"
-  result[:items].each do |how_many, items|
+def print_result(how_many, code, order)
+  puts "#{how_many} #{code} $#{order.total}"
+  order.result.each do |how_many, items|
     total = items.inject(0) do |total, hash|
       total + hash[:price]
     end
@@ -37,14 +37,12 @@ puts 'So, what\'s your order?'
 
 begin
   how_many, code = gets.split(' ')
-  result = shop.order(how_many, code)
-
-  raise 'Unable to find the right bundles for this order. Bye!' unless result
+  order = shop.order!(how_many, code)
 
   puts ''
   puts 'Order Details:'
 
-  print_result(how_many, code, result)
+  print_result(how_many, code, order)
 rescue Exception => e
   puts e.message
 end
