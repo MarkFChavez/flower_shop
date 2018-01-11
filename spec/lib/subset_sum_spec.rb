@@ -13,7 +13,7 @@ RSpec.describe SubsetSum do
 
         count = SubsetSum.compute(@target, possible_values).count
 
-        expect(count).to eq 1
+        expect(count).to eq 2
       end
     end
 

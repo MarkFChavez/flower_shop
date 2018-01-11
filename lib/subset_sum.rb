@@ -12,13 +12,12 @@ class SubsetSum
 
   def compute
     [].tap do |result|
-      combination_sum(options.sort.reverse, 0, options.size - 1, target, [], result)
+      combination_sum(options.sort, 0, options.size - 1, target, [], result)
     end.first
   end
 
   private
 
-  # TODO: Not really mine. I got this `method` online so I reused it and apply it for our use-case.
   # https://github.com/bbp-labs/leetcode/blob/master/algorithms/combination_sum.rb
   def combination_sum(nums, lbound, ubound, target, tracing, result)
     sum = tracing.reduce(0, &:+)

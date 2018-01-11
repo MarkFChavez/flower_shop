@@ -2,8 +2,8 @@ require_relative './lib/shop'
 
 shop = Shop.new
 
-def print_result(result)
-  puts "25 R12 $#{result[:total_price]}"
+def print_result(how_many, code, result)
+  puts "#{how_many} #{code} $#{result[:total_price].round(2)}"
   result[:items].each do |how_many, items|
     total = items.inject(0) do |total, hash|
       total + hash[:price]
@@ -13,27 +13,38 @@ def print_result(result)
   end
 end
 
-puts "SHOP"
-puts "####"
-
+puts 'Welcome to Flower Shop v1.0!'
+puts '============================'
 puts ''
 
-Shop::BUNDLES.each do |bundle|
-  puts bundle.item_name
+puts 'HERE ARE THE AVAILABLE BUNDLES:'
+Shop::BUNDLES.each_with_index do |bundle, index|
+  puts "#{index + 1}) [#{bundle.item_name}] Code: #{bundle.item_code}"
+  puts '=============================='
   bundle.price_details.each do |how_many, price|
-    puts "#{how_many} for $#{price}"
+    puts "#{how_many} pcs. for $#{price}"
   end
   puts ''
 end
 
-puts ''
+puts 'Order a bundle by typing in the ff. formats'
+puts 'e.g.'
+puts '10 R12'
+puts '15 L09'
+puts '13 T58'
 
-puts "Order 25 Roses"
-result = shop.order(25, 'R12')
-print_result(result)
+puts 'So, what\'s your order?'
 
-puts ''
+begin
+  how_many, code = gets.split(' ')
+  result = shop.order(how_many, code)
 
-puts "Order 18 Lilies"
-result = shop.order(18, 'L09')
-print_result(result)
+  raise 'Unable to find the right bundles for this order. Bye!' unless result
+
+  puts ''
+  puts 'Order Details:'
+
+  print_result(how_many, code, result)
+rescue Exception => e
+  puts e.message
+end

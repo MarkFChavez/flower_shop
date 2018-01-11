@@ -2,25 +2,29 @@ require_relative './subset_sum'
 
 Item = Struct.new(:name, :code)
 Bundle = Struct.new(:item, :price_details) do
+  def self.for(item, details); new(item, details); end
   def item_code; item.code; end
   def item_name; item.name; end
 end
 
 class Shop
   BUNDLES = [
-    Bundle.new(Item.new('Roses', 'R12'), { 5 => 6.99, 10 => 12.99 }),
-    Bundle.new(Item.new('Lilies', 'L09'), { 3 => 9.95, 6 => 16.95, 9 => 24.95 }),
-    Bundle.new(Item.new('Tulips', 'T58'), { 3 => 5.95, 5 => 9.95, 9 => 16.99 })
+    Bundle.for(Item.new('Roses', 'R12'), { 5 => 6.99, 10 => 12.99 }),
+    Bundle.for(Item.new('Lilies', 'L09'), { 3 => 9.95, 6 => 16.95, 9 => 24.95 }),
+    Bundle.for(Item.new('Tulips', 'T58'), { 3 => 5.95, 5 => 9.95, 9 => 16.99 }),
+    Bundle.for(Item.new('Gumamela', 'G92'), { 10 => 35.99, 20 => 65.99, 5 => 20.00 })
   ]
 
   # TODO: Handle invalid `how_many`
   def order(how_many, code)
     bundle_details = find_bundle_by_code(code).price_details
-    bundle_sizes = SubsetSum.compute(how_many, bundle_details.keys)
+    bundle_size = SubsetSum.compute(how_many.to_i, bundle_details.keys)
+
+    return unless bundle_size
 
     total = 0
 
-    result = bundle_sizes.map do |size|
+    result = bundle_size.map do |size|
       return unless bundle_details.has_key?(size)
       total += bundle_details[size]
 
