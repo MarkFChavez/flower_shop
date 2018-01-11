@@ -1,6 +1,6 @@
 require_relative './lib/shop'
 
-shop = Shop.new
+shop = Shop.new # uses default bundle
 
 def print_result(number_of_pieces, code, order)
   puts "#{number_of_pieces} #{code} $#{order.total}"

@@ -58,8 +58,8 @@ class Shop
 
       result = valid_sizes.map do |size|
         total += details[size]
-        { how_many: size, price: details[size] }
-      end.compact.group_by { |item| item[:how_many] }
+        { number_of_pieces: size, price: details[size] }
+      end.compact.group_by { |item| item[:number_of_pieces] }
 
       Order.new(total.round(2), result)
     end
