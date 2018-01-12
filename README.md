@@ -1,5 +1,9 @@
 # Flower Shop Problem
 
+### What Did I Use?
+- Language: `Ruby` (2.4.1)
+- Testing Framework: `RSpec` (3.7.0)
+
 ### Usage
 ```ruby
 ruby start.rb
