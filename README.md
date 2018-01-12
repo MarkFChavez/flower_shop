@@ -53,5 +53,5 @@ T58 $25.85
 
 # Credits
 
-Thanks to [leetcode](ttps://github.com/haoel/leetcode) for providing the solution for my
+Thanks to [leetcode](https://github.com/haoel/leetcode) for providing the solution for my
 combination sum problem.
