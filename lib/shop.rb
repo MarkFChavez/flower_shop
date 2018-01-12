@@ -12,16 +12,14 @@ class Shop
   end
 
   def order!(number_of_pieces, code)
-    bundle = Bundle.find_by_code(bundles, code)
-    raise "[#{code}] - Cannot find bundle. Make sure you typed the right code." unless bundle
-
+    bundle = Bundle.find_by_code!(bundles, code)
     price_details = bundle.price_details
     available_bundles = price_details.keys
 
-    best_bundle = SubsetSum.compute(number_of_pieces, price_details.keys)
-    raise "[#{number_of_pieces} #{code}] - Cannot find a proper bundle for this order." unless best_bundle
+    best_subset = SubsetSum.compute(number_of_pieces, price_details.keys)
+    raise "[#{number_of_pieces} #{code}] - Cannot find a proper bundle for this order." unless best_subset
 
-    build_order(best_bundle, price_details)
+    build_order(best_subset, price_details)
   end
 
   private
