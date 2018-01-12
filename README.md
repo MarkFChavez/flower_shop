@@ -5,6 +5,12 @@
 ruby start.rb
 ```
 
+### Contributing
+Make sure all specs pass before pushing a pull request.
+```ruby
+rspec spec
+```
+
 ### How It Works
 ![](flower_shop.png)
 
