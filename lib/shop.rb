@@ -32,11 +32,11 @@ class Shop
 
   def order!(number_of_pieces, code)
     bundle = find_bundle_by_code(code)
-    raise 'Cannot find bundle. Make sure you typed the right code.' unless bundle
+    raise "[#{code}] - Cannot find bundle. Make sure you typed the right code." unless bundle
 
     price_details = bundle.price_details
     sizes_combination = find_right_sizes_combination(price_details, number_of_pieces)
-    raise 'Cannot find a proper bundle for this order.' unless sizes_combination
+    raise "[#{number_of_pieces} #{code}] - Cannot find a proper bundle for this order." unless sizes_combination
 
     build_order(sizes_combination, price_details)
   end
