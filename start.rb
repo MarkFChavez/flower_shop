@@ -1,7 +1,5 @@
 require_relative './lib/shop'
 
-shop = Shop.new # uses default bundle
-
 def print_result(number_of_pieces, code, order)
   puts "#{number_of_pieces} #{code} $#{order.total}"
   order.result.each do |number_of_pieces, items|
@@ -13,41 +11,43 @@ def print_result(number_of_pieces, code, order)
   end
 end
 
-try_again = true
+puts 'WELCOME TO FLOWER SHOP V1.0!'
+puts '============================'
+puts ''
 
-while try_again do
-  puts 'WELCOME TO FLOWER SHOP V1.0!'
-  puts '============================'
-  puts ''
+shop = Shop.new
 
-  puts 'Here are the available bundles:'
-  shop.bundles.each_with_index do |bundle, index|
-    puts "#{index + 1}) [#{bundle.item_name}] Code: #{bundle.item_code}"
-    puts '=============================='
-    bundle.price_details.each do |number_of_pieces, price|
-      puts "#{number_of_pieces} pcs. for $#{price}"
-    end
-    puts ''
+puts 'Here are the available bundles:'
+shop.bundles.each_with_index do |bundle, index|
+  puts "#{index + 1}) [#{bundle.item_name}] Code: #{bundle.item_code}"
+  puts '=============================='
+  bundle.price_details.each do |number_of_pieces, price|
+    puts "#{number_of_pieces} pcs. for $#{price}"
   end
+  puts ''
+end
 
-  puts 'Order a bundle by typing in the ff. formats [number_of_pieces item_code] w/o the brackets:'
+STOP_ACTION = 'stop'
 
+puts "Place your order(s). Type `#{STOP_ACTION}` to submit"
+
+result = []
+
+while input = gets do
+  break if input.strip == STOP_ACTION
+  result << input
+end
+
+puts ''
+puts 'Order Summary'
+puts '-------------'
+
+result.each do |order|
   begin
-
-    number_of_pieces, code = gets.split(' ')
-    order = shop.order!(number_of_pieces, code)
-
-    puts ''
-    puts 'Order Details:'
-
-    print_result(number_of_pieces, code, order)
-
-    puts ''
-    puts 'Do you want to try again? (Y or N):'
-    try_again = gets.strip == 'Y' ? true : false
-
-  rescue Exception => e
-    try_again = true
+    number_of_pieces, code = order.split(' ')
+    order_summary = shop.order!(number_of_pieces, code)
+    print_result(number_of_pieces, code, order_summary)
+  rescue => e
     puts e.message
   end
 end
