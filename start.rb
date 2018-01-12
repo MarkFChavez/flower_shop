@@ -13,23 +13,23 @@ def print_result(number_of_pieces, code, order)
   end
 end
 
-puts 'WELCOME TO FLOWER SHOP V1.0!'
-puts '============================'
-puts ''
-
-puts 'Here are the available bundles:'
-shop.bundles.each_with_index do |bundle, index|
-  puts "#{index + 1}) [#{bundle.item_name}] Code: #{bundle.item_code}"
-  puts '=============================='
-  bundle.price_details.each do |number_of_pieces, price|
-    puts "#{number_of_pieces} pcs. for $#{price}"
-  end
-  puts ''
-end
-
 try_again = true
 
 while try_again do
+  puts 'WELCOME TO FLOWER SHOP V1.0!'
+  puts '============================'
+  puts ''
+
+  puts 'Here are the available bundles:'
+  shop.bundles.each_with_index do |bundle, index|
+    puts "#{index + 1}) [#{bundle.item_name}] Code: #{bundle.item_code}"
+    puts '=============================='
+    bundle.price_details.each do |number_of_pieces, price|
+      puts "#{number_of_pieces} pcs. for $#{price}"
+    end
+    puts ''
+  end
+
   puts 'Order a bundle by typing in the ff. formats [number_of_pieces item_code] w/o the brackets:'
 
   begin
