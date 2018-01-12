@@ -25,7 +25,6 @@ Each order has a series of lines with each line containing the number of items f
 13 T58
 ```
 
-
 ### Output
 A successfully passing test(s) that demonstrates the following output: (The format of the output is not important)
 
@@ -41,3 +40,8 @@ T58 $25.85
   2 x 5 $9.95
   1 x 3 $5.95
 ```
+
+# Credits
+
+Thanks to [leetcode](ttps://github.com/haoel/leetcode) for providing the solution for my
+combination sum problem.
