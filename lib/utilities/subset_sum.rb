@@ -1,25 +1,14 @@
-class SubsetSum
+module SubsetSum
   def self.compute(target, options)
-    new(target, options).compute
-  end
-
-  attr_reader :target, :options
-
-  def initialize(target, options)
-    @target = target.to_i
-    @options = options
-  end
-
-  def compute
     [].tap do |result|
-      combination_sum(options.sort, 0, options.size - 1, target, [], result)
+      combination_sum(options.sort, 0, options.size - 1, target.to_i, [], result)
     end.last
   end
 
   private
 
   # https://github.com/bbp-labs/leetcode/blob/master/algorithms/combination_sum.rb
-  def combination_sum(nums, lbound, ubound, target, tracing, result)
+  def self.combination_sum(nums, lbound, ubound, target, tracing, result)
     sum = tracing.reduce(0, &:+)
     nums[lbound..ubound].each_with_index do |n, i|
       break if sum + n > target

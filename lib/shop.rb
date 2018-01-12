@@ -1,5 +1,5 @@
 require_relative './data/sample_bundles'
-require_relative './subset_sum'
+require_relative './utilities/subset_sum'
 require_relative './bundle'
 require_relative './item'
 require_relative './order'

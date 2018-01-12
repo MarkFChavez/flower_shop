@@ -1,5 +1,4 @@
 require 'spec_helper'
-require_relative '../../lib/subset_sum'
 
 RSpec.describe SubsetSum do
   context 'Given a target of `10`' do
