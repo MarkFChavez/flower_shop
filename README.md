@@ -5,6 +5,9 @@
 ruby start.rb
 ```
 
+### How It Works
+![](flower_shop.png)
+
 ### Context
 A flower shop used to base the price of their flowers on an item by item cost. So if a customer ordered 10 roses then they would be charged 10x the cost of single rose. The flower shop has decided to start selling their flowers in bundles and charging the customer on a per bundle basis. So if the shop sold roses in bundles of 5 and 10 and a customer ordered 15 they would get a bundle of 10 and a bundle of 5.
 
