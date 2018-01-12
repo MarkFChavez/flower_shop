@@ -6,7 +6,7 @@ class Bundle
   end
 
   def self.find_by_code(bundles, code)
-    bundles.select { |bundle| bundle.item_code == code }.first
+    Array(bundles).select { |bundle| bundle.code == code }.first
   end
 
   def initialize(item, price_details)
@@ -14,6 +14,6 @@ class Bundle
     @price_details = price_details
   end
 
-  def item_code; item.code; end
-  def item_name; item.name; end
+  def code; item.code; end
+  def name; item.name; end
 end

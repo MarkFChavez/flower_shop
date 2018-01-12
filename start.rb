@@ -19,7 +19,7 @@ shop = Shop.new
 
 puts 'Here are the available bundles:'
 shop.bundles.each_with_index do |bundle, index|
-  puts "#{index + 1}) [#{bundle.item_name}] Code: #{bundle.item_code}"
+  puts "#{index + 1}) [#{bundle.name}] Code: #{bundle.code}"
   puts '=============================='
   bundle.price_details.each do |number_of_pieces, price|
     puts "#{number_of_pieces} pcs. for $#{price}"
